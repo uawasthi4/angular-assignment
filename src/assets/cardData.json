@@ -1,0 +1,23 @@
+[
+  {
+    "cardNumber": "4888524251678924",
+    "cardType": "visa",
+    "cvv": 378,
+    "expiryMonth": 4,
+    "expiryYear": 2024
+  },
+  {
+    "cardNumber": "5123409182341093",
+    "cardType": "mastercard",
+    "cvv": 345,
+    "expiryMonth": 6,
+    "expiryYear": 2022
+  },
+  {
+    "cardNumber": "345636703893458",
+    "cardType": "amex",
+    "cvv": 1234,
+    "expiryMonth": 2,
+    "expiryYear": 2023
+  }
+]

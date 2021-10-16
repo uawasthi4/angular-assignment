@@ -1,0 +1,124 @@
+<button mat-icon-button class="close-button" mat-dialog-close>
+  <mat-icon class="close-icon">close</mat-icon>
+</button>
+<h1 mat-dialog-title>Add new card</h1>
+<div mat-dialog-content>
+  <form [formGroup]="ccForm">
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label for="cardNumber">Enter Debit/ Credit Card Number</mat-label>
+        <input
+          matInput
+          placeholder="Enter Debit/ Credit Card Number"
+          type="tel"
+          autocomplete="cc-number"
+          ccNumber
+          #ccNumber="ccNumber"
+          name="cardNumber"
+          formControlName="cardNumber"
+        />
+
+        <ng-container [ngSwitch]="ccNumber.resolvedScheme$ | async">
+          <mat-icon
+            *ngSwitchCase="'visa'"
+            class="input-icon"
+            svgIcon="visa"
+            matSuffix
+          ></mat-icon>
+          <mat-icon
+            *ngSwitchCase="'mastercard'"
+            class="input-icon"
+            svgIcon="mastercard"
+            matSuffix
+          ></mat-icon>
+          <mat-icon
+            *ngSwitchCase="'amex'"
+            class="input-icon"
+            svgIcon="amex"
+            matSuffix
+          ></mat-icon>
+        </ng-container>
+        <mat-error
+          *ngIf="
+            (submitted || ccForm.controls.cardNumber.touched) &&
+            ccForm.controls.cardNumber.invalid
+          "
+          >{{ getCCErrorMessage() }}</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        <mat-form-field appearance="fill">
+          <mat-label for="expMonth">Expiry Month</mat-label>
+          <mat-select name="expMonth" formControlName="expiryMonth">
+            <mat-option *ngFor="let month of months" [value]="month">
+              {{ month }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              (submitted || ccForm.controls.expiryMonth.touched) &&
+              ccForm.controls.expiryMonth?.errors?.required
+            "
+          >
+            Please enter expiry month
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field appearance="fill">
+          <mat-label for="expYear">Expiry Year</mat-label>
+          <mat-select name="expYear" formControlName="expiryYear">
+            <mat-option *ngFor="let year of years" [value]="year">
+              {{ year }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              (submitted || ccForm.controls.expiryYear.touched) &&
+              ccForm.controls.expiryYear?.errors?.required
+            "
+          >
+            Please enter expiry year
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field appearance="fill">
+          <mat-label for="cvv">CVV</mat-label>
+          <input
+            matInput
+            placeholder="Ex. 123"
+            name="cvv"
+            type="tel"
+            autocomplete="off"
+            formControlName="cvv"
+            ccCVC
+          />
+          <mat-icon svgIcon="cvv" matSuffix></mat-icon>
+          <mat-error
+            *ngIf="
+              (submitted || ccForm.controls.cvv.touched) &&
+              ccForm.controls.expiryYear?.errors?.required
+            "
+          >
+            Please enter CVV
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    cdkFocusInitial
+    type="button"
+    (click)="onSubmit()"
+  >
+    Add Card
+  </button>
+</div>

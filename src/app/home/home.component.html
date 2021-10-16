@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-title>My Wallet</mat-card-title>
+  <mat-card-content>
+    <p>List of cards</p>
+    <p></p>
+    <div *ngFor="let card of cards; let i = index">
+      <div class="row">
+        <div class="col-11">
+          <mat-card class="mb-2">
+            <mat-card-title-group>
+              <mat-card-subtitle>Debit Card Number</mat-card-subtitle>
+              <mat-card-title>
+                {{ card.cardNumber | hideCardNumberPipe: 4 }}
+              </mat-card-title>
+              <div [ngSwitch]="card.cardType">
+                <mat-icon
+                  *ngSwitchCase="'visa'"
+                  class="card-image"
+                  svgIcon="visa"
+                  matSuffix
+                ></mat-icon>
+                <mat-icon
+                  *ngSwitchCase="'mastercard'"
+                  class="card-image"
+                  svgIcon="mastercard"
+                  matSuffix
+                ></mat-icon>
+                <mat-icon
+                  *ngSwitchCase="'amex'"
+                  class="card-image"
+                  svgIcon="amex"
+                  matSuffix
+                ></mat-icon>
+              </div>
+            </mat-card-title-group>
+          </mat-card>
+        </div>
+        <div class="col-1 d-flex align-items-center">
+          <button mat-stroked-button color="primary" (click)="removeCard(i)">
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-divider inset></mat-divider>
+  <mat-card-actions class="d-flex justify-content-end">
+    <button mat-raised-button color="primary" (click)="openAddCardDialog()">
+      Add new card
+    </button>
+  </mat-card-actions>
+</mat-card>
